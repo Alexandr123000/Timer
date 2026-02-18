@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-def timer(): # timer working function
+def timer(): # timer working
     global seconds
     if seconds > 0:
         label.config(text=str(seconds))
@@ -14,7 +14,7 @@ main = Tk()
 label = Label(main, text="mmm")
 label.grid(row=4, column=7)
 
-seconds = 20
+seconds = 20 # seconds
 
 timer()
 main.mainloop()
