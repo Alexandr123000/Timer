@@ -13,8 +13,6 @@ def timer(): # timer working
 main = Tk()
 label = Label(main, text="mmm")
 label.grid(row=4, column=7)
-
-seconds = 20 # seconds
-
+seconds = 20
 timer()
 main.mainloop()
