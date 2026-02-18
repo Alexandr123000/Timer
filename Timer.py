@@ -17,5 +17,4 @@ label.grid(row=4, column=7)
 seconds = 20
 
 timer()
-
 main.mainloop()
