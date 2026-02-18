@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
-from turtle import bgcolor
+from tkinter.tix import COLUMN
+from turtle import bgcolor, color
 
 # functions
 def timer(): # function with timer
@@ -19,20 +20,16 @@ main.configure(bg="skyblue")
 
 # Styles
 style = ttk.Style()
-style.configure("TSeparator", bgcolor="red")
+style.configure("green.TSeparator", background="green")
 
 #Separators
 ttk.Separator(
     master=main,
     orient=VERTICAL,
-    style="TSeparator",
+    style="green.TSeparator",
     class_= ttk.Separator,
-    )
+    ).place(relx=0.3, rely=0, relwidth=0.01, relheight=1)
 
-
-
-
-l = Toplevel(main, bg="blue")
 label = Label(main, text="mmm")
 label.grid(row=4, column=7)
 seconds = 20
