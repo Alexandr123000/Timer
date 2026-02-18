@@ -1,8 +1,9 @@
 
+
 from tkinter import *
 from tkinter import ttk
 
-def timer(): # timer work
+def timer(): # timer working
     global seconds
     if seconds > 0:
         label.config(text=str(seconds))
