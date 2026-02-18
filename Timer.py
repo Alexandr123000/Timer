@@ -1,5 +1,3 @@
-
-
 from tkinter import *
 from tkinter import ttk
 
@@ -13,7 +11,6 @@ def timer(): # timer working
         label.config(text="time is up")
 
 main = Tk()
-
 label = Label(main, text="mmm")
 label.grid(row=4, column=7)
 
