@@ -1,3 +1,4 @@
+import string
 from tkinter import *
 from tkinter import ttk
 import time
@@ -22,6 +23,15 @@ current_number_of_seconds_of_the_time = 0
 current_number_of_hours = "00"
 current_number_of_minutes = "00"
 current_number_of_seconds = "00"
+timers = {}
+
+
+
+new_timer_seconds_of_the_time = 0
+new_timer_description = StringVar()
+new_timer_seconds = StringVar()
+new_timer_minutes = StringVar()
+new_timer_hours = StringVar()
 
 # functions
 def timer():
@@ -116,25 +126,45 @@ def reset_the_timer():
     minutes.set("00")
     hours.set("00")
 
+def save_a_new_timer():
+    global new_timer_seconds_of_the_time, new_timer_seconds, new_timer_minutes, new_timer_hours, new_timer_description, timers
+    new_timer_seconds_of_the_time = int(new_timer_hours.get()) * 3600 + int(new_timer_minutes.get()) * 60 + int(new_timer_seconds.get())
+    timers[str(new_timer_description)] = str(new_timer_seconds_of_the_time)
+    print(timers)
+    
+
+
 def add_a_new_timer():
-    timer_description = StringVar()
-    new_timer_seconds = StringVar()
-    new_timer_minutes = StringVar()
-    new_timer_hours = StringVar()
+    new_timer_seconds.set("00")
+    new_timer_minutes.set("00")
+    new_timer_hours.set("00")
 
     new_timer_toplevel = Toplevel(main, width=300, height=200)
     new_timer_toplevel.title("Creating a new timer")
-    hours_label = Label(new_timer_toplevel, text="Hours")
-    minutes_label = Label(new_timer_toplevel, text="Minutes")
-    seconds_label = Label(new_timer_toplevel, text="Seconds")
 
-    timer_description_entry = Entry(new_timer_toplevel, textvariable=timer_description, width=10, font=10)
-    seconds_entry = Entry(main, textvariable=new_timer_seconds, width=10, font=15)
-    minutes_entry = Entry(main, textvariable=new_timer_minutes, width=10, font=15)
-    hours_entry = Entry(main, textvariable=new_timer_hours, width=10, font=15)
+    hours_label = Label(new_timer_toplevel, text="Hours", font=20)
+    minutes_label = Label(new_timer_toplevel, text="Minutes", font=20)
+    seconds_label = Label(new_timer_toplevel, text="Seconds", font=20)
+    description_label = Label(new_timer_toplevel, text="Seconds", font=20)
 
-    save_new_timer_button = Button(new_timer_toplevel, text="SAVE", width=10, height=1, font=20)
-    close_new_timer_button = Button(new_timer_toplevel, text="CLOSE", width=10, height=1, font=20)
+    timer_description_entry = Entry(new_timer_toplevel, textvariable=new_timer_description, width=10, font=10)
+    seconds_entry = Entry(new_timer_toplevel, textvariable=new_timer_seconds, width=2, font=30)
+    minutes_entry = Entry(new_timer_toplevel, textvariable=new_timer_minutes, width=2, font=30)
+    hours_entry = Entry(new_timer_toplevel, textvariable=new_timer_hours, width=2, font=15)
+
+    save_new_timer_button = Button(new_timer_toplevel, text="SAVE", command=save_a_new_timer)
+    close_new_timer_button = Button(new_timer_toplevel, text="CLOSE")
+    
+    seconds_label.place(relx=0.5, rely=0.2)
+    minutes_label.place(relx=0.3, rely=0.2)
+    hours_label.place(relx=0.1, rely=0.2)
+    seconds_entry.place(relx=0.1, rely=0.3)
+    minutes_entry.place(relx=0.3, rely=0.3)
+    hours_entry.place(relx=0.5, rely=0.3)
+    timer_description_entry.place(relx=0.3, rely=0.4)
+    save_new_timer_button.place(relx=0.2, rely=0.5)
+    close_new_timer_button.place(relx=0.4, rely=0.5)
+
 
 
 # Styles
