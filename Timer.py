@@ -1,4 +1,3 @@
-import string
 from tkinter import *
 from tkinter import ttk
 import time
@@ -7,6 +6,8 @@ import time
 main = Tk()
 main.title("Timer")
 main.configure(bg="skyblue")
+main.resizable(False, False)
+main.geometry("800x500")
 
 #Variables
 seconds = StringVar()
@@ -24,7 +25,7 @@ current_number_of_hours = "00"
 current_number_of_minutes = "00"
 current_number_of_seconds = "00"
 timers = {}
-
+new_timer_toplevel = 0
 
 
 new_timer_seconds_of_the_time = 0
@@ -127,25 +128,58 @@ def reset_the_timer():
     hours.set("00")
 
 def save_a_new_timer():
+    global new_timer_toplevel
+    number_of_seconds = "00"
+    number_of_minutes = "00"
+    number_of_hours = "00"
     global new_timer_seconds_of_the_time, new_timer_seconds, new_timer_minutes, new_timer_hours, new_timer_description, timers
     new_timer_seconds_of_the_time = int(new_timer_hours.get()) * 3600 + int(new_timer_minutes.get()) * 60 + int(new_timer_seconds.get())
-    timers[str(new_timer_description)] = str(new_timer_seconds_of_the_time)
+    timers[str(new_timer_description.get())] = str(new_timer_seconds_of_the_time)
+    number_of_minutes, number_of_seconds = (new_timer_seconds_of_the_time // 60, new_timer_seconds_of_the_time % 60)
+    if number_of_minutes > 60 or number_of_minutes == 60:
+        number_of_hours, number_of_minutes = (number_of_minutes // 60, number_of_minutes % 60)
+    else:
+        number_of_hours = "00"
+    if int(number_of_seconds) < 10 and int(number_of_seconds) != 0:
+        number_of_seconds = "0" + str(number_of_seconds)
+    if int(number_of_minutes) < 10 and int(number_of_minutes) != 0:
+        number_of_minutes = "0" + str(number_of_minutes)
+    if int(number_of_hours) < 10 and int(number_of_hours) != 0:
+        number_of_hours = "0" + str(number_of_hours)
+    if int(number_of_seconds) == 0:
+        number_of_seconds = "00"
+    if int(number_of_minutes) == 0:
+        number_of_minutes = "00"
+    if int(number_of_hours) == 0:
+        number_of_hours = "00"
+
+    new_timer_frame = Frame(timers_frame, bg="yellow")
+    new_timer_label = Label(new_timer_frame, text=(str(number_of_hours) + "   " + str(number_of_minutes) + "   " + str(number_of_seconds)))
+    new_timer_description_label = Label(new_timer_frame, text=new_timer_description.get())
+    select_the_new_timer_button = Button(new_timer_frame, text="SELECT")
+
+
+    new_timer_frame.pack(side=TOP)
+    new_timer_description_label.pack(side=LEFT)
+    new_timer_label.pack(side=LEFT)
+    select_the_new_timer_button.pack(side=BOTTOM)
+    new_timer_frame.pack(side=TOP)
+
     print(timers)
     
-
-
 def add_a_new_timer():
+    global new_timer_toplevel
     new_timer_seconds.set("00")
     new_timer_minutes.set("00")
     new_timer_hours.set("00")
 
-    new_timer_toplevel = Toplevel(main, width=300, height=200)
+    new_timer_toplevel = Toplevel(main, width=300, height=300)
     new_timer_toplevel.title("Creating a new timer")
 
     hours_label = Label(new_timer_toplevel, text="Hours", font=20)
     minutes_label = Label(new_timer_toplevel, text="Minutes", font=20)
     seconds_label = Label(new_timer_toplevel, text="Seconds", font=20)
-    description_label = Label(new_timer_toplevel, text="Seconds", font=20)
+    description_label = Label(new_timer_toplevel, text="Description", font=20)
 
     timer_description_entry = Entry(new_timer_toplevel, textvariable=new_timer_description, width=10, font=10)
     seconds_entry = Entry(new_timer_toplevel, textvariable=new_timer_seconds, width=2, font=30)
@@ -155,15 +189,16 @@ def add_a_new_timer():
     save_new_timer_button = Button(new_timer_toplevel, text="SAVE", command=save_a_new_timer)
     close_new_timer_button = Button(new_timer_toplevel, text="CLOSE")
     
-    seconds_label.place(relx=0.5, rely=0.2)
-    minutes_label.place(relx=0.3, rely=0.2)
+    seconds_label.place(relx=0.7, rely=0.2)
+    minutes_label.place(relx=0.4, rely=0.2)
     hours_label.place(relx=0.1, rely=0.2)
-    seconds_entry.place(relx=0.1, rely=0.3)
-    minutes_entry.place(relx=0.3, rely=0.3)
-    hours_entry.place(relx=0.5, rely=0.3)
-    timer_description_entry.place(relx=0.3, rely=0.4)
-    save_new_timer_button.place(relx=0.2, rely=0.5)
-    close_new_timer_button.place(relx=0.4, rely=0.5)
+    seconds_entry.place(relx=0.7, rely=0.3)
+    minutes_entry.place(relx=0.4, rely=0.3)
+    hours_entry.place(relx=0.1, rely=0.3)
+    description_label.place(relx=0.1, rely=0.5)
+    timer_description_entry.place(relx=0.1, rely=0.6)
+    save_new_timer_button.place(relx=0.1, rely=0.8)
+    close_new_timer_button.place(relx=0.7, rely=0.8)
 
 
 
@@ -178,32 +213,39 @@ ttk.Separator(
     orient=VERTICAL,
     style="green.TSeparator",
     class_= ttk.Separator,
-    ).place(relx=0.3, rely=0, relwidth=0.01, relheight=1)
-
-#Entries
-seconds_entry = Entry(main, textvariable=seconds, width=10, font=15)
-minutes_entry = Entry(main, textvariable=minutes, width=10, font=15)
-hours_entry = Entry(main, textvariable=hours, width=10, font=15)
+    ).place(relx=0.3, rely=0, width=10)
 
 #Frames
 placing_buttons_frame = Frame(main)
-timers_frame = Frame(main, bg="red")
+timers_frame = Frame(main, bg="red", width=200, height=500)
+timer_frame = Frame(main, bg="yellow", width=600, height=500)
+
+#Entries
+seconds_entry = Entry(timer_frame, textvariable=seconds, width=2, font=20)
+minutes_entry = Entry(timer_frame, textvariable=minutes, width=2, font=20)
+hours_entry = Entry(timer_frame, textvariable=hours, width=2, font=20)
+
 
 #Buttons
-start_the_timer_button = Button(main, text="START", width=10, height=1, font=20, command=timer)
-pause_the_timer_button = Button(main, text="PAUSE", width=10, height=1, font=20, command=pause_the_timer)
-reset_the_timer_button = Button(main, text="RESET", width=10, height=1, font=20, command=reset_the_timer)
+start_the_timer_button = Button(timer_frame, text="START", width=10, height=1, font=20, command=timer)
+pause_the_timer_button = Button(timer_frame, text="PAUSE", width=10, height=1, font=20, command=pause_the_timer)
+reset_the_timer_button = Button(timer_frame, text="RESET", width=10, height=1, font=20, command=reset_the_timer)
 add_a_new_timer_button = Button(placing_buttons_frame, text="Add a timer", command=add_a_new_timer)
 delete_a_timer_button = Button(placing_buttons_frame, text="Delete a timer", command=add_a_new_timer)
 delete_all_timers_button = Button(placing_buttons_frame, text="Delete all timers", command=add_a_new_timer)
 
 #Labels
 #timer_settings_label = Label(timers_frame, )
+hours_label = Label(main, text="Hours", font=20)
+minutes_label = Label(main, text="Minutes", font=20)
+seconds_label = Label(main, text="Seconds", font=20)
 
 #Placing
 placing_buttons_frame.grid(row=0, column=2, columnspan=3)
 timers_frame.grid(row=1, column=2, columnspan=3)
-seconds_entry.place(relx=0.65, rely=0.35)
+timer_frame.place(relx=0.3)
+
+seconds_entry.place(relx=0.1, rely=0.1)
 minutes_entry.place(relx=0.55, rely=0.35)
 hours_entry.place(relx=0.45, rely=0.35)
 start_the_timer_button.place(relx=0.6, rely=0.5)
