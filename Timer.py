@@ -312,4 +312,4 @@ reset_the_timer_button.place(relx=0.8, rely=0.6)
 add_a_new_timer_button.pack(side=LEFT)
 delete_all_timers_button.pack(side=LEFT)
 
-#main.mainloop()
+main.mainloop()
