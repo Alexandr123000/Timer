@@ -5,7 +5,7 @@ import time
 # Main
 main = Tk()
 main.title("Timer")
-main.configure(bg="skyblue")
+main.configure(bg="#AAC6D5") #======================================================
 main.resizable(False, False)
 main.geometry("800x400")
 
@@ -256,22 +256,22 @@ def add_a_new_timer():
 # Styles
 style = ttk.Style()
 style.configure("green.TSeparator", background="green")
-style.configure("MainTimerButtons.TButton", width=10, height=1, font=("", 16, ""))
+style.configure("MainTimerButtons.TButton", width=10, background="#AAC6D5",  foreground="#0B627E", height=1, font=("", 16, ""))
 style.configure("AddNewTimerButton.TButton", width=24)
 style.configure("DeleteAllTimersButton.TButton", width=14)
-style.configure("TimeEntries.TEntry", foreground="red")
+style.configure("TimeEntries.TEntry", background="#AAC6D5", foreground="#5698AE") #======================================================
 style.configure("TimeLabels.TLabel")
 style.configure("TimeForNewTimerLabels.TLabel", font=("", 14, ""))
-style.configure("TimeForNewTimerEntries.TEntry", foreground="red")
+style.configure("TimeForNewTimerEntries.TEntry", foreground="red") #======================================================
 style.configure("NewTimerButton.TButton", font=("", 10, ""))
 style.configure("DescriptionLabel.TLabel", font=("", 14, ""))
 style.configure("TimerDescriptionEntry.TEntry")
 style.configure("ExistingTimerButtons.TButton", font=("", 8, ""))
 style.configure("ExistingTimerDescriptionLabel.TLabel", font=("", 10, ""))
 style.configure("ExistingTimerLabel.TLabel", font=("", 10, ""))
-style.configure("DividersLabels.TLabel", font=("", 10, ""))
+style.configure("DividersLabels.TLabel",  foreground="#0B627E", background="#AAC6D5", font=("", 10, ""))  #======================================================
 style.configure("TimeIsUpLabel.TLabel", font=("", 16, ""))
-style.configure("NewTimerDividersLabels.TLabel", font=("", 26, ""))
+style.configure("NewTimerDividersLabels.TLabel", font=("", 26, "")) #======================================================
 
 # Separators
 ttk.Separator(
@@ -283,7 +283,7 @@ ttk.Separator(
 
 # Frames
 placing_buttons_frame = Frame(main)
-timers_frame = Frame(main, bg="red", width=250, height=400)
+timers_frame = Frame(main, bg="#0B627E", width=250, height=400) #======================================================
 timers_frame.pack_propagate(0)
 
 # Entries
@@ -299,9 +299,9 @@ add_a_new_timer_button = ttk.Button(placing_buttons_frame, text="Add a timer", s
 delete_all_timers_button = ttk.Button(placing_buttons_frame, text="Delete all timers", style="DeleteAllTimersButton.TButton", command=delete_all_timers)
 
 # Labels
-hours_label = ttk.Label(main, text="Hours", font=("", 17, ""))
-minutes_label = ttk.Label(main, text="Minutes", font=("", 17, ""))
-seconds_label = ttk.Label(main, text="Seconds", font=("", 17, ""))
+hours_label = ttk.Label(main, text="Hours", background="#AAC6D5", foreground="#0B627E", font=("", 17, ""))
+minutes_label = ttk.Label(main, text="Minutes", background="#AAC6D5", foreground="#0B627E", font=("", 17, ""))
+seconds_label = ttk.Label(main, text="Seconds", background="#AAC6D5", foreground="#0B627E", font=("", 17, ""))
 first_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 35, ""))
 second_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 35, ""))
 
