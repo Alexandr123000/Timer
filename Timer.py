@@ -95,6 +95,10 @@ def timer():
             seconds.set("00")
             minutes.set("00")
             hours.set("00")
+            time_is_up_toplevel = Toplevel(main, width=250, height=150)
+            time_is_up_toplevel.resizable(False, False)
+            time_is_up_label = ttk.Label(time_is_up_toplevel, text="Time is up", style="TimeIsUpLabel.TLabel")
+            time_is_up_label.place(relx=0.3, rely=0.4)
         seconds_of_the_time -= 1
 
 def pause_the_timer():
@@ -226,6 +230,8 @@ def add_a_new_timer():
     new_timer_toplevel = Toplevel(main, width=300, height=250)
     new_timer_toplevel.title("Creating a new timer")
     new_timer_toplevel.resizable(False, False)
+    first_new_timer_divider_label = ttk.Label(new_timer_toplevel, text=":", style="NewTimerDividersLabels.TLabel")
+    second_new_timer_divider_label = ttk.Label(new_timer_toplevel, text=":", style="NewTimerDividersLabels.TLabel")
     hours_label = ttk.Label(new_timer_toplevel, text="Hours", style="TimeForNewTimerLabels.TLabel")
     minutes_label = ttk.Label(new_timer_toplevel, text="Minutes", style="TimeForNewTimerLabels.TLabel")
     seconds_label = ttk.Label(new_timer_toplevel, text="Seconds", style="TimeForNewTimerLabels.TLabel")
@@ -239,7 +245,9 @@ def add_a_new_timer():
     minutes_label.place(relx=0.37, rely=0.17)
     hours_label.place(relx=0.1, rely=0.17)
     seconds_entry.place(relx=0.74, rely=0.3)
+    second_new_timer_divider_label.place(relx=0.628, rely=0.273)
     minutes_entry.place(relx=0.44, rely=0.3)
+    first_new_timer_divider_label.place(relx=0.328, rely=0.273)
     hours_entry.place(relx=0.14, rely=0.3)
     description_label.place(relx=0.33, rely=0.52)
     timer_description_entry.place(relx=0.16, rely=0.65)
@@ -262,6 +270,8 @@ style.configure("ExistingTimerButtons.TButton", font=("", 8, ""))
 style.configure("ExistingTimerDescriptionLabel.TLabel", font=("", 10, ""))
 style.configure("ExistingTimerLabel.TLabel", font=("", 10, ""))
 style.configure("DividersLabels.TLabel", font=("", 10, ""))
+style.configure("TimeIsUpLabel.TLabel", font=("", 16, ""))
+style.configure("NewTimerDividersLabels.TLabel", font=("", 26, ""))
 
 # Separators
 ttk.Separator(
@@ -292,8 +302,8 @@ delete_all_timers_button = ttk.Button(placing_buttons_frame, text="Delete all ti
 hours_label = ttk.Label(main, text="Hours", font=("", 17, ""))
 minutes_label = ttk.Label(main, text="Minutes", font=("", 17, ""))
 seconds_label = ttk.Label(main, text="Seconds", font=("", 17, ""))
-first_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 25, ""))
-seconds_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 25, ""))
+first_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 35, ""))
+second_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 35, ""))
 
 # Placing
 placing_buttons_frame.grid(row=0, column=0)
@@ -302,9 +312,9 @@ hours_label.place(relx=0.494, rely=0.23)
 minutes_label.place(relx=0.63, rely=0.23)
 seconds_label.place(relx=0.778, rely=0.23)
 seconds_entry.place(relx=0.8, rely=0.35)
-first_divider_label.place(relx=0.75, rely=0.35)
+second_divider_label.place(relx=0.746, rely=0.335)
 minutes_entry.place(relx=0.65, rely=0.35)
-seconds_divider_label.place(relx=0.6, rely=0.35)
+first_divider_label.place(relx=0.596, rely=0.335)
 hours_entry.place(relx=0.5, rely=0.35)
 start_the_timer_button.place(relx=0.4, rely=0.6)
 pause_the_timer_button.place(relx=0.6, rely=0.6)
