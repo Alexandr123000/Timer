@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 import time
-from typing import Type
 
 # Main
 main = Tk()
@@ -11,34 +10,33 @@ main.resizable(False, False)
 main.geometry("800x400")
 
 # Variables
+seconds_of_the_time = 0
+current_number_of_seconds_of_the_time = 0
+new_timer_toplevel = 0
+counter_to_count_widgets = 0
+new_timer_seconds_of_the_time = 0
+timers = {}
+counter_for_widgets = []
+neither_hours_nor_minutes = False
+no_minutes = False
+timer_is_paused = False
 seconds = StringVar()
 minutes = StringVar()
 hours = StringVar()
-seconds.set("00")
-minutes.set("00")
-hours.set("00")
-neither_hours_nor_minutes = False
-no_minutes = False
-seconds_of_the_time = 0
-timer_is_paused = False
-current_number_of_seconds_of_the_time = 0
-current_number_of_hours = "00"
-current_number_of_minutes = "00"
-current_number_of_seconds = "00"
-timers = {}
-new_timer_toplevel = 0
-counter_for_widgets = []
-counter_to_count_widgets = 0
-new_timer_seconds_of_the_time = 0
 new_timer_description = StringVar()
 new_timer_seconds = StringVar()
 new_timer_minutes = StringVar()
 new_timer_hours = StringVar()
+seconds.set("00")
+minutes.set("00")
+hours.set("00")
+current_number_of_hours = "00"
+current_number_of_minutes = "00"
+current_number_of_seconds = "00"
 
 # functions
-def timer():
+def start_the_timer():
     global seconds_of_the_time, current_number_of_hours, current_number_of_minutes, current_number_of_seconds, timer_is_paused
-    
     if timer_is_paused:
         seconds_of_the_time = current_number_of_seconds_of_the_time
         pause_the_timer_button.config(text="PAUSE")
@@ -98,18 +96,20 @@ def timer():
             hours.set("00")
             time_is_up_toplevel = Toplevel(main, width=250, height=150, background="#AAC6D5")
             time_is_up_toplevel.resizable(False, False)
+            time_is_up_toplevel.title("Time is up")
             time_is_up_label = ttk.Label(time_is_up_toplevel, text="Time is up", style="TimeIsUpLabel.TLabel")
             time_is_up_label.place(relx=0.3, rely=0.4)
         seconds_of_the_time -= 1
 
 def pause_the_timer():
     global timer_is_paused, current_number_of_seconds, current_number_of_minutes, current_number_of_seconds, timer_is_paused, seconds_of_the_time
+    global current_number_of_seconds_of_the_time
     if timer_is_paused:
         timer_is_paused = True
         return
     timer_is_paused = True
     pause_the_timer_button.config(text="PAUSED")
-    global current_number_of_seconds_of_the_time
+    
     current_number_of_seconds_of_the_time = seconds_of_the_time
     current_number_of_hours = hours_entry.get()
     current_number_of_minutes = minutes_entry.get()
@@ -125,6 +125,7 @@ def reset_the_timer():
     seconds.set("00")
     minutes.set("00")
     hours.set("00")
+    pause_the_timer_button.config(text="PAUSE")
 
 def delete_all_timers():
     global counter_for_widgets
@@ -229,7 +230,7 @@ def add_a_new_timer():
     new_timer_minutes.set("00")
     new_timer_hours.set("00")
     new_timer_toplevel = Toplevel(main, width=300, height=250, background="#AAC6D5")
-    new_timer_toplevel.title("Creating a new timer")
+    new_timer_toplevel.title("New timer")
     new_timer_toplevel.resizable(False, False)
     first_new_timer_divider_label = ttk.Label(new_timer_toplevel, text=":", style="NewTimerDividersLabels.TLabel")
     second_new_timer_divider_label = ttk.Label(new_timer_toplevel, text=":", style="NewTimerDividersLabels.TLabel")
@@ -271,7 +272,7 @@ style.configure("ExistingTimerButtons.TButton", foreground="#5698AE", background
 style.configure("ExistingTimerDescriptionLabel.TLabel", foreground="#ACC2D9", background="#085165", font=("", 10, ""))
 style.configure("ExistingTimerLabel.TLabel", foreground="#AAC6D5", background="#085165", font=("", 10, ""))
 style.configure("DividersLabels.TLabel", foreground="#085165", background="#478098", font=("", 10, ""))  #======================================================
-style.configure("TimeIsUpLabel.TLabel", foreground="#085165", font=("", 16, ""))
+style.configure("TimeIsUpLabel.TLabel", foreground="#085165", background="#AAC6D5", font=("", 16, ""))
 style.configure("NewTimerDividersLabels.TLabel", foreground="#085165", background="#AAC6D5", font=("", 26, "")) #======================================================
 
 # Separators
@@ -293,7 +294,7 @@ minutes_entry = ttk.Entry(main, textvariable=minutes, style="TimeEntries.TEntry"
 hours_entry = ttk.Entry(main, textvariable=hours, style="TimeEntries.TEntry", width=2, font=("", 30, ""))
 
 # Buttons
-start_the_timer_button = ttk.Button(main, text="START", style="MainTimerButtons.TButton", command=timer)
+start_the_timer_button = ttk.Button(main, text="START", style="MainTimerButtons.TButton", command=start_the_timer)
 pause_the_timer_button = ttk.Button(main, text="PAUSE", style="MainTimerButtons.TButton", command=pause_the_timer)
 reset_the_timer_button = ttk.Button(main, text="RESET", style="MainTimerButtons.TButton", command=reset_the_timer)
 add_a_new_timer_button = ttk.Button(placing_buttons_frame, text="Add a timer", style="AddNewTimerButton.TButton", command=add_a_new_timer)
