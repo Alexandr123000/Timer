@@ -16,9 +16,7 @@ new_timer_toplevel = 0
 counter_to_count_widgets = 0
 new_timer_seconds_of_the_time = 0
 timers = {}
-counter_for_widgets = []
-neither_hours_nor_minutes = False
-no_minutes = False
+list_of_widgets = []
 timer_is_paused = False
 seconds = StringVar()
 minutes = StringVar()
@@ -127,21 +125,21 @@ def reset_the_timer():
     pause_the_timer_button.config(text="PAUSE")
 
 def delete_all_timers():
-    global counter_for_widgets
-    for widget in counter_for_widgets:
+    global list_of_widgets
+    for widget in list_of_widgets:
         if isinstance(widget, Frame):
             widget.destroy() #deleting the parent widgets to delete all child widgets and itself
-    counter_for_widgets.clear()
+    list_of_widgets.clear()
 
 def delete_timer(description):
-    global counter_for_widgets
+    global list_of_widgets
     counter = 4
-    for widget in counter_for_widgets:
+    for widget in list_of_widgets:
         if isinstance(widget, ttk.Button):
             if widget.cget("text") == "DELETE":
-                if counter_for_widgets[counter-2].cget("text") == description:
-                    counter_for_widgets[counter-4].destroy() #deleting the parent widget to delete all child widgets and itself
-                    del counter_for_widgets[(counter-4):(counter+1)] #deleting the widgets from the list
+                if list_of_widgets[counter-2].cget("text") == description:
+                    list_of_widgets[counter-4].destroy() #deleting the parent widget to delete all child widgets and itself
+                    del list_of_widgets[(counter-4):(counter+1)] #deleting the widgets from the list
                     break
                 counter += 5
 
@@ -152,25 +150,25 @@ def select_timer(description):
     selected_hours = "00"
     selected_minutes ="00"
     selected_seconds = "00"
-    for widget in counter_for_widgets:
+    for widget in list_of_widgets:
         if isinstance(widget, ttk.Button):
             if widget.cget("text") == "SELECT":
-                if counter_for_widgets[counter_for_the_list-1].cget("text") == description: #checking if a description is located together with the button
+                if list_of_widgets[counter_for_the_list-1].cget("text") == description: #checking if a description is located together with the button
                     selected_hours = ""
                     selected_minutes = ""
                     selected_seconds = ""
-                    for hours_counter in counter_for_widgets[counter_for_the_list-2].cget("text"):
+                    for hours_counter in list_of_widgets[counter_for_the_list-2].cget("text"):
                         selected_hours += hours_counter  #extracting the number of hours from the string
                         counter_for_the_time += 1
                         if counter_for_the_time == 2:
                             break
-                    the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+1):]
+                    the_rest_of_the_list = list_of_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+1):]
                     for minutes_counter in the_rest_of_the_list:
                         selected_minutes += minutes_counter  #extracting the number of minutes from the string
                         counter_for_the_time += 1
                         if counter_for_the_time == 4:
                             break
-                    the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+2):]
+                    the_rest_of_the_list = list_of_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+2):]
                     for seconds_counter in the_rest_of_the_list:
                         selected_seconds += seconds_counter #extracting the number of seconds from the string
                         counter_for_the_time += 1
@@ -181,7 +179,7 @@ def select_timer(description):
     seconds.set(selected_seconds)
 
 def save_a_new_timer():
-    global new_timer_toplevel, counter_for_widgets, counter_to_count_widgets
+    global new_timer_toplevel, list_of_widgets, counter_to_count_widgets
     global new_timer_seconds_of_the_time, new_timer_seconds, new_timer_minutes, new_timer_hours, new_timer_description, timers
     number_of_seconds = "00"
     number_of_minutes = "00"
@@ -211,11 +209,11 @@ def save_a_new_timer():
     new_timer_description_label = ttk.Label(new_timer_frame, text=new_timer_description.get(), style="ExistingTimerDescriptionLabel.TLabel")
     select_the_new_timer_button = ttk.Button(new_timer_frame, name="selectButton", text="SELECT", style="ExistingTimerButtons.TButton", width=6.2, command= lambda: select_timer(timer_description))
     delete_the_new_timer_button = ttk.Button(new_timer_frame, name="deleteButton", text="DELETE", style="ExistingTimerButtons.TButton", width=6.2, command= lambda: delete_timer(timer_description))
-    counter_for_widgets.append(new_timer_frame) 
-    counter_for_widgets.append(new_timer_label)
-    counter_for_widgets.append(new_timer_description_label)
-    counter_for_widgets.append(select_the_new_timer_button)
-    counter_for_widgets.append(delete_the_new_timer_button)
+    list_of_widgets.append(new_timer_frame) 
+    list_of_widgets.append(new_timer_label)
+    list_of_widgets.append(new_timer_description_label)
+    list_of_widgets.append(select_the_new_timer_button)
+    list_of_widgets.append(delete_the_new_timer_button)
     new_timer_frame.pack(side=TOP, fill=BOTH)
     new_timer_description_label.pack(side=LEFT)
     delete_the_new_timer_button.pack(side=RIGHT)
