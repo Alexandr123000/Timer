@@ -1,11 +1,12 @@
 from tkinter import *
 from tkinter import ttk
 import time
+from typing import Type
 
 # Main
 main = Tk()
 main.title("Timer")
-main.configure(bg="#AAC6D5") #======================================================
+main.configure(bg="#478098") #======================================================
 main.resizable(False, False)
 main.geometry("800x400")
 
@@ -95,7 +96,7 @@ def timer():
             seconds.set("00")
             minutes.set("00")
             hours.set("00")
-            time_is_up_toplevel = Toplevel(main, width=250, height=150)
+            time_is_up_toplevel = Toplevel(main, width=250, height=150, background="#AAC6D5")
             time_is_up_toplevel.resizable(False, False)
             time_is_up_label = ttk.Label(time_is_up_toplevel, text="Time is up", style="TimeIsUpLabel.TLabel")
             time_is_up_label.place(relx=0.3, rely=0.4)
@@ -161,15 +162,15 @@ def select_timer(description):
                     for hours_counter in counter_for_widgets[counter_for_the_list-2].cget("text"):
                         selected_hours += hours_counter
                         counter_for_the_time += 1
-                        if hours_counter == ":":
+                        if counter_for_the_time == 2:
                             break
-                    the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[counter_for_the_time:]
+                    the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+1):]
                     for minutes_counter in the_rest_of_the_list:
                         selected_minutes += minutes_counter
                         counter_for_the_time += 1
-                        if minutes_counter == ":":
+                        if counter_for_the_time == 4:
                             break
-                    the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[counter_for_the_time:]
+                    the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+2):]
                     for seconds_counter in the_rest_of_the_list:
                         selected_seconds += seconds_counter
                         counter_for_the_time += 1
@@ -205,7 +206,7 @@ def save_a_new_timer():
     if int(number_of_hours) == 0:
         number_of_hours = "00"
     timer_description = new_timer_description.get()
-    new_timer_frame = Frame(timers_frame,bg="yellow")
+    new_timer_frame = Frame(timers_frame, bg="#085165")
     new_timer_label = ttk.Label(new_timer_frame, text=(str(number_of_hours) + ":" + str(number_of_minutes) + ":" + str(number_of_seconds)), style="ExistingTimerLabel.TLabel")
     new_timer_description_label = ttk.Label(new_timer_frame, text=new_timer_description.get(), style="ExistingTimerDescriptionLabel.TLabel")
     select_the_new_timer_button = ttk.Button(new_timer_frame, name="selectButton", text="SELECT", style="ExistingTimerButtons.TButton", width=6.2, command= lambda: select_timer(timer_description))
@@ -227,7 +228,7 @@ def add_a_new_timer():
     new_timer_seconds.set("00")
     new_timer_minutes.set("00")
     new_timer_hours.set("00")
-    new_timer_toplevel = Toplevel(main, width=300, height=250)
+    new_timer_toplevel = Toplevel(main, width=300, height=250, background="#AAC6D5")
     new_timer_toplevel.title("Creating a new timer")
     new_timer_toplevel.resizable(False, False)
     first_new_timer_divider_label = ttk.Label(new_timer_toplevel, text=":", style="NewTimerDividersLabels.TLabel")
@@ -255,34 +256,34 @@ def add_a_new_timer():
 
 # Styles
 style = ttk.Style()
-style.configure("green.TSeparator", background="green")
-style.configure("MainTimerButtons.TButton", width=10, background="#AAC6D5",  foreground="#0B627E", height=1, font=("", 16, ""))
-style.configure("AddNewTimerButton.TButton", width=24)
-style.configure("DeleteAllTimersButton.TButton", width=14)
-style.configure("TimeEntries.TEntry", background="#AAC6D5", foreground="#5698AE") #======================================================
+style.configure("MainSeparator.TSeparator", background="#085165")
+style.configure("MainTimerButtons.TButton", width=10, background="#478098", foreground="#5698AE", height=1, font=("", 16, "")) #======================================================
+style.configure("AddNewTimerButton.TButton", width=24, foreground="#5698AE", background="#478098") #======================================================
+style.configure("DeleteAllTimersButton.TButton", width=14, foreground="#5698AE", background="#478098") #======================================================
+style.configure("TimeEntries.TEntry", foreground="#0B627E", background="#478098") #======================================================
 style.configure("TimeLabels.TLabel")
-style.configure("TimeForNewTimerLabels.TLabel", font=("", 14, ""))
-style.configure("TimeForNewTimerEntries.TEntry", foreground="red") #======================================================
-style.configure("NewTimerButton.TButton", font=("", 10, ""))
-style.configure("DescriptionLabel.TLabel", font=("", 14, ""))
-style.configure("TimerDescriptionEntry.TEntry")
-style.configure("ExistingTimerButtons.TButton", font=("", 8, ""))
-style.configure("ExistingTimerDescriptionLabel.TLabel", font=("", 10, ""))
-style.configure("ExistingTimerLabel.TLabel", font=("", 10, ""))
-style.configure("DividersLabels.TLabel",  foreground="#0B627E", background="#AAC6D5", font=("", 10, ""))  #======================================================
-style.configure("TimeIsUpLabel.TLabel", font=("", 16, ""))
-style.configure("NewTimerDividersLabels.TLabel", font=("", 26, "")) #======================================================
+style.configure("TimeForNewTimerLabels.TLabel", foreground="#085165", background="#AAC6D5", font=("", 14, ""))
+style.configure("TimeForNewTimerEntries.TEntry", foreground="#0B627E", background="#AAC6D5") #======================================================
+style.configure("NewTimerButton.TButton", foreground="#5698AE", background="#AAC6D5", font=("", 10, ""))
+style.configure("DescriptionLabel.TLabel", foreground="#085165", background="#AAC6D5", font=("", 14, ""))
+style.configure("TimerDescriptionEntry.TEntry", background="#AAC6D5")
+style.configure("ExistingTimerButtons.TButton", foreground="#5698AE", background="#085165", font=("", 8, ""))
+style.configure("ExistingTimerDescriptionLabel.TLabel", foreground="#ACC2D9", background="#085165", font=("", 10, ""))
+style.configure("ExistingTimerLabel.TLabel", foreground="#AAC6D5", background="#085165", font=("", 10, ""))
+style.configure("DividersLabels.TLabel", foreground="#085165", background="#478098", font=("", 10, ""))  #======================================================
+style.configure("TimeIsUpLabel.TLabel", foreground="#085165", font=("", 16, ""))
+style.configure("NewTimerDividersLabels.TLabel", foreground="#085165", background="#AAC6D5", font=("", 26, "")) #======================================================
 
 # Separators
 ttk.Separator(
     master=main,
     orient=VERTICAL,
-    style="green.TSeparator",
+    style="MainSeparator.TSeparator",
     class_= ttk.Separator,
     ).place(relx=0.31, rely=0, width=3, height=400)
 
 # Frames
-placing_buttons_frame = Frame(main)
+placing_buttons_frame = Frame(main, background="#478098")
 timers_frame = Frame(main, bg="#0B627E", width=250, height=400) #======================================================
 timers_frame.pack_propagate(0)
 
@@ -299,9 +300,9 @@ add_a_new_timer_button = ttk.Button(placing_buttons_frame, text="Add a timer", s
 delete_all_timers_button = ttk.Button(placing_buttons_frame, text="Delete all timers", style="DeleteAllTimersButton.TButton", command=delete_all_timers)
 
 # Labels
-hours_label = ttk.Label(main, text="Hours", background="#AAC6D5", foreground="#0B627E", font=("", 17, ""))
-minutes_label = ttk.Label(main, text="Minutes", background="#AAC6D5", foreground="#0B627E", font=("", 17, ""))
-seconds_label = ttk.Label(main, text="Seconds", background="#AAC6D5", foreground="#0B627E", font=("", 17, ""))
+hours_label = ttk.Label(main, text="Hours", background="#478098", foreground="#085165", font=("", 17, ""))
+minutes_label = ttk.Label(main, text="Minutes", background="#478098", foreground="#085165", font=("", 17, ""))
+seconds_label = ttk.Label(main, text="Seconds", background="#478098", foreground="#085165", font=("", 17, ""))
 first_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 35, ""))
 second_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", font=("", 35, ""))
 
