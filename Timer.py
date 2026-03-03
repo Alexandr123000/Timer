@@ -46,7 +46,7 @@ def start_the_timer():
             pause_the_timer_button.config(text="PAUSE")
         seconds_of_the_time = int(hours.get()) * 3600 + int(minutes.get()) * 60 + int(seconds.get())
         start_number_of_seconds_of_the_time = seconds_of_the_time
-    while seconds_of_the_time > -1:
+    while seconds_of_the_time > -1: #the countdown of the timer
         if timer_is_paused:
             seconds_of_the_time = current_number_of_seconds_of_the_time
             timer_is_paused = False
@@ -109,10 +109,10 @@ def pause_the_timer():
         return
     timer_is_paused = True
     pause_the_timer_button.config(text="PAUSED")
-    current_number_of_seconds_of_the_time = seconds_of_the_time
-    current_number_of_hours = hours_entry.get()
-    current_number_of_minutes = minutes_entry.get()
-    current_number_of_seconds = seconds_entry.get()
+    current_number_of_seconds_of_the_time = seconds_of_the_time #saving current state of the timer
+    current_number_of_hours = hours_entry.get() #saving current state of the timer
+    current_number_of_minutes = minutes_entry.get() #saving current state of the timer
+    current_number_of_seconds = seconds_entry.get() #saving current state of the timer
 
 def reset_the_timer():
     global seconds_of_the_time, current_number_of_seconds_of_the_time, neither_hours_nor_minutes, no_minutes, timer_is_paused
@@ -130,7 +130,7 @@ def delete_all_timers():
     global counter_for_widgets
     for widget in counter_for_widgets:
         if isinstance(widget, Frame):
-            widget.destroy()
+            widget.destroy() #deleting the parent widgets to delete all child widgets and itself
     counter_for_widgets.clear()
 
 def delete_timer(description):
@@ -140,8 +140,8 @@ def delete_timer(description):
         if isinstance(widget, ttk.Button):
             if widget.cget("text") == "DELETE":
                 if counter_for_widgets[counter-2].cget("text") == description:
-                    counter_for_widgets[counter-4].destroy()
-                    del counter_for_widgets[(counter-4):(counter+1)]
+                    counter_for_widgets[counter-4].destroy() #deleting the parent widget to delete all child widgets and itself
+                    del counter_for_widgets[(counter-4):(counter+1)] #deleting the widgets from the list
                     break
                 counter += 5
 
@@ -155,24 +155,24 @@ def select_timer(description):
     for widget in counter_for_widgets:
         if isinstance(widget, ttk.Button):
             if widget.cget("text") == "SELECT":
-                if counter_for_widgets[counter_for_the_list-1].cget("text") == description:
+                if counter_for_widgets[counter_for_the_list-1].cget("text") == description: #checking if a description is located together with the button
                     selected_hours = ""
                     selected_minutes = ""
                     selected_seconds = ""
                     for hours_counter in counter_for_widgets[counter_for_the_list-2].cget("text"):
-                        selected_hours += hours_counter
+                        selected_hours += hours_counter  #extracting the number of hours from the string
                         counter_for_the_time += 1
                         if counter_for_the_time == 2:
                             break
                     the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+1):]
                     for minutes_counter in the_rest_of_the_list:
-                        selected_minutes += minutes_counter
+                        selected_minutes += minutes_counter  #extracting the number of minutes from the string
                         counter_for_the_time += 1
                         if counter_for_the_time == 4:
                             break
                     the_rest_of_the_list = counter_for_widgets[counter_for_the_list-2].cget("text")[(counter_for_the_time+2):]
                     for seconds_counter in the_rest_of_the_list:
-                        selected_seconds += seconds_counter
+                        selected_seconds += seconds_counter #extracting the number of seconds from the string
                         counter_for_the_time += 1
                     break
                 counter_for_the_list += 5
