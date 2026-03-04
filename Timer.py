@@ -259,7 +259,6 @@ style.configure("MainTimerButtons.TButton", width=10, background="#478098", fore
 style.configure("AddNewTimerButton.TButton", width=24, foreground="#5698AE", background="#478098")
 style.configure("DeleteAllTimersButton.TButton", width=14, foreground="#5698AE", background="#478098")
 style.configure("TimeEntries.TEntry", foreground="#0B627E", background="#478098")
-style.configure("TimeLabels.TLabel")
 style.configure("TimeForNewTimerLabels.TLabel", foreground="#085165", background="#AAC6D5", font=("", 14, ""))
 style.configure("TimeForNewTimerEntries.TEntry", foreground="#0B627E", background="#AAC6D5")
 style.configure("NewTimerButton.TButton", foreground="#5698AE", background="#AAC6D5", font=("", 10, ""))
@@ -282,7 +281,7 @@ ttk.Separator(
 
 #Frames
 placing_buttons_frame = Frame(main, background="#478098")
-timers_frame = Frame(main, bg="#0B627E", width=250, height=400)
+timers_frame = Frame(main, bg="#0B627E", width=250, height=375)
 timers_frame.pack_propagate(0)
 
 #Entries
@@ -307,17 +306,17 @@ second_divider_label = ttk.Label(main, text=":", style="DividersLabels.TLabel", 
 #Placing
 placing_buttons_frame.grid(row=0, column=0)
 timers_frame.grid(row=1, column=0)
-hours_label.place(relx=0.494, rely=0.23)
-minutes_label.place(relx=0.63, rely=0.23)
-seconds_label.place(relx=0.778, rely=0.23)
-seconds_entry.place(relx=0.8, rely=0.35)
-second_divider_label.place(relx=0.746, rely=0.335)
-minutes_entry.place(relx=0.65, rely=0.35)
-first_divider_label.place(relx=0.596, rely=0.335)
-hours_entry.place(relx=0.5, rely=0.35)
-start_the_timer_button.place(relx=0.4, rely=0.6)
-pause_the_timer_button.place(relx=0.6, rely=0.6)
-reset_the_timer_button.place(relx=0.8, rely=0.6)
+hours_label.place(relx=0.472, rely=0.26)
+minutes_label.place(relx=0.608, rely=0.26)
+seconds_label.place(relx=0.756, rely=0.26)
+seconds_entry.place(relx=0.778, rely=0.38)
+second_divider_label.place(relx=0.724, rely=0.365)
+minutes_entry.place(relx=0.628, rely=0.38)
+first_divider_label.place(relx=0.574, rely=0.365)
+hours_entry.place(relx=0.478, rely=0.38)
+start_the_timer_button.place(relx=0.378, rely=0.63)
+pause_the_timer_button.place(relx=0.578, rely=0.63)
+reset_the_timer_button.place(relx=0.778, rely=0.63)
 add_a_new_timer_button.pack(side=LEFT)
 delete_all_timers_button.pack(side=LEFT)
 
